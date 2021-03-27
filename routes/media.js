@@ -4,6 +4,8 @@ const isBase64 = require('is-base64');
 const base64Img = require('base64-img');
 const fs = require('fs');
 
+const { HOST } = process.env
+
 const { media: Media } = require('../models');
 
 router.get('/', async (req, res) => {
@@ -12,7 +14,7 @@ router.get('/', async (req, res) => {
   });
 
   const mappedMedia = allMedia.map(el => {
-    el.image = `${req.get('host')}/${el.image}`
+    el.image = `${HOST}/${el.image}`
     return el
   })
 
@@ -41,7 +43,7 @@ router.post('/', (req, res) => {
       status: 'success',
       data: {
         id: media.id,
-        image: `${req.get('host')}/images/${filename}`,
+        image: `${HOST}/images/${filename}`,
       }
     })
   })
